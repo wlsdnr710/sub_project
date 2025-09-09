@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 const DAuthButtons = ({
   isAuthenticated,
   isOpen,
@@ -15,7 +16,8 @@ const DAuthButtons = ({
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex items-center focus:outline-none"
-          ></button>
+          >
+          </button>
 
           {isOpen && (
             // <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
@@ -31,12 +33,12 @@ const DAuthButtons = ({
             //   >
             //     문의하기
             //   </Link>
-            <button
-              onClick={onLogoutClick}
-              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-            >
-              로그아웃
-            </button>
+              <button
+                onClick={onLogoutClick}
+                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                로그아웃
+              </button>
             // </div>
           )}
         </div>

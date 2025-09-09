@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Logo from "./layout/Logo";
-import DAuthButtons from "./auth/DAuthButtons";
-import MobileAuthButtons from "./auth/MobileAuthButtons";
-import MobileMenu from "./layout/MobileMenu";
+import AuthButtons from "./auth/DAuthButtons";
+import MobileMenu from './layout/MobileMenu';
+import MobileToggleButton from "./layout/MobileToggleButton";
+import Categories from "./layout/Categories";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,10 @@ function Navbar() {
     alert("로그아웃");
   };
 
+  const onCategoryClick=(category)=>{
+    alert(category);
+  }
+
   return (
     <nav className="bg-purple-500">
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,7 +32,10 @@ function Navbar() {
           <div className="flex items-center flex-1">
             <Logo />
           </div>
-          <DAuthButtons
+
+          <MobileToggleButton isOpen={isOpen} setIsOpen={setIsOpen}/>
+
+          <AuthButtons
             isAuthenticated={isAuthenticated}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
@@ -35,9 +43,19 @@ function Navbar() {
             onLoginClick={onLoginClick}
             onSignupClick={onSignupClick}
           />
-          <MobileMenu />
         </div>
+
+      <MobileMenu 
+            isAuthenticated={isAuthenticated}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            onLogoutClick={onLogoutClick}
+            onLoginClick={onLoginClick}
+            onSignupClick={onSignupClick}
+      />
       </div>
+
+      <Categories onClick={onCategoryClick} />
     </nav>
   );
 }
