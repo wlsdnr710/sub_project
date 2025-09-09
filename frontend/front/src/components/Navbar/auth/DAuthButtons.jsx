@@ -1,7 +1,10 @@
+import { Link } from "react-router-dom";
+
 const DAuthButtons = ({
   isAuthenticated,
   isOpen,
   setIsOpen,
+  onLogoutClick,
   onLoginClick,
   onSignupClick,
 }) => {
@@ -14,28 +17,28 @@ const DAuthButtons = ({
             className="flex items-center focus:outline-none"
           ></button>
 
-          {/* {isOpen && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
-              <Link
-                to="/profile"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                프로필
-              </Link>
-              <Link
-                to="/contact"
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                문의하기
-              </Link>
-              <button
-                onClick={onLogoutClick}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                로그아웃
-              </button>
-            </div>
-          )} */}
+          {isOpen && (
+            // <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10">
+            //   <Link
+            //     to="/profile"
+            //     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            //   >
+            //     프로필
+            //   </Link>
+            //   <Link
+            //     to="/contact"
+            //     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            //   >
+            //     문의하기
+            //   </Link>
+            <button
+              onClick={onLogoutClick}
+              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            >
+              로그아웃
+            </button>
+            // </div>
+          )}
         </div>
       ) : (
         <div className="flex space-x-4">
