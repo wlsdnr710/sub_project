@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.db.database import Base, async_engine
 from fastapi.concurrency import asynccontextmanager
 from app.db.models import user
+from app.routers import user
+from app.middleware.token_refresh import TokenRefreshMiddleware
 
 #애플리케이션의 시작과 종료 시 실행될 작업을 정의함
 #시작/끝을 비동기적으로 처리
@@ -18,6 +20,11 @@ async def lifespan(app:FastAPI):
 #앱 시작과 종료시 DB테이블 생성 및 엔진 종료 작업 실행하겠다
 app=FastAPI(lifespan=lifespan)
 
+
+#미들웨어 등록
+app.add_middleware(TokenRefreshMiddleware)
+
+
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
@@ -27,6 +34,10 @@ app.add_middleware(
     allow_headers=["*"],
 
 )
+
+#user.py에 정의된 모든 경로를 fastapi앱에 등록하겠다
+app.include_router(user.router)
+
 
 # if __name__=="__main__":
 #     uvicorn.run("main:app",host="localhost",port=8081,reload=True)

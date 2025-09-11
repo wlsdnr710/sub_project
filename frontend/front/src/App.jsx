@@ -1,16 +1,54 @@
-import React from "react";
-import Navbar from "./components/Navbar";
+import React, { useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import LoginModal from "./Components/modal/LoginModal";
+import { AuthProvider } from "./hooks/useAuth";
+import SignupModal from "./Components/modal/SignupModal"; 
 
+const LootLayout = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+
+  const onLoginClick = () => {
+    setIsSignupOpen(false);
+    setIsLoginOpen(true);
+  };
+
+  const onSignupClick = () => {
+    setIsLoginOpen(false);
+    setIsSignupOpen(true);
+  };
+
+  const handleCloseModals = () => {
+    setIsLoginOpen(false);
+    setIsSignupOpen(false);
+  };
+
+  return (
+    <AuthProvider>
+      <Navbar onLoginClick={onLoginClick} onSignupClick={onSignupClick} /> 
+      <LoginModal
+        isOpen={isLoginOpen}
+        onClose={handleCloseModals}
+        onSignupClick={onSignupClick}
+      />
+
+      <SignupModal                                     
+        isOpen={isSignupOpen}
+        onClose={handleCloseModals}
+        onLoginClick={onLoginClick}
+      />
+    </AuthProvider>
+  );
+};
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navbar />, // '/'경로로 들어갈때 Navbar 컴포넌트 렌더링
+    element: <LootLayout />,
   },
 ]);
 
 const App = () => {
-  //라우터 객체를 앱에 공급하는 역할
   return <RouterProvider router={router} />;
 };
 
