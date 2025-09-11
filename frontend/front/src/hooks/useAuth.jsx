@@ -1,77 +1,64 @@
 import { useState, createContext, useContext } from "react";
 import api from "../utils/api";
-import { showSuccessAlert, showErrorAlert } from './../utils/alertUtiles';
-import {useNavigate} from "react-router-dom";
-
+import { showSuccessAlert, showErrorAlert } from "./../utils/alertUtiles";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser]=useState(null);
-  const navigate=useNavigate();
-
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   const login = async (email, password) => {
-    try{
-      const response=await api.post("/users/login", {email, password});
+    try {
+      const response = await api.post("/users/login", { email, password });
 
-      if(response.status===200){
+      if (response.status === 200) {
         setUser(response.data);
         setIsAuthenticated(true);
         showSuccessAlert("로그인 성공");
         return true;
       }
-    }
-    catch(error){
+    } catch (error) {
       console.log(error);
       setIsAuthenticated(false);
       return false;
     }
   };
 
-  const verifyJWTtoken=async() =>{
-
-    try{
-      const response=await api.get("users/userme");
+  const verifyJWTtoken = async () => {
+    try {
+      const response = await api.get("users/userme");
       setIsAuthenticated(true);
       setUser(response.data); //현재 로그인한 사람 정보 세팅
       return true;
-
-    }catch(error){
-      if(error.response?.status===401){
+    } catch (error) {
+      if (error.response?.status === 401) {
         const detail = error.response.data?.detail;
 
         // if(detail===""){
-            navigate("/login")
+        navigate("/login");
         // }
       }
     }
+  };
 
-  }
+  const signup = async ({ email, username, password, confirmPassword }) => {
+    //유효성 검사
+    setError("회원가입에 실패했습니다");
+    return false;
 
+    // try{
+    //   const response=await api.post("/users/singup", {email, username, password});
+    // }
+  };
 
-
-
-
-
-
-
-  // const signup = async ({email, username, password, confirmPassword}) => {
-  //   //유효성 검사
-  //   setError("회원가입에 실패했습니다");
-  //   return false;
-
-  //   // try{
-  //   //   const response=await api.post("/users/singup", {email, username, password});
-  //   // }
-  // };
-
-  // const logout = async () => {
-  //   const response=await api.post("/users/logout");
-  //   alert("로그아웃");
-  // };
+  const logout = async () => {
+    const response = await api.post("/users/logout");
+    alert("로그아웃");
+  };
 
   return (
     <AuthContext.Provider
