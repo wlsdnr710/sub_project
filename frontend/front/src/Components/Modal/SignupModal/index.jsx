@@ -1,12 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useCallback } from "react";
+import { useAuth } from "../../../hooks/useAuth";
 import {
   ModalLayout,
-  FormButton,
   FormInput,
   ErrorMessage,
+  FormButton,
   SwitchAuthLink,
 } from "../Ui";
-import { useAuth } from "../../../hooks/useAuth";
 
 const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
   const [formData, setFormData] = useState({
@@ -16,33 +16,16 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
     confirmPassword: "",
   });
 
-  const { error, signup, setError } = useAuth();
+  const { error, signup } = useAuth();
 
   const handleChange = useCallback((e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }, []);
 
   const handleSubmit = useCallback(
-    async (e) => {
-      e.preventDefault();
-
-      setError("");
-
-      const {email, username, password, confirmPassword } = formData;
-
-      if (username.length < 2) {
-        setError("닉네임은 최소 2글자 이상이어야한다");
-        return;
-      }
-      if (password.length < 6) {
-        setError("비번은 최소 6글자 이상이어야한다");
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        setError("비밀번호가 일치하지 않는다");
-        return;
-      }
+    async (event) => {
+      event.preventDefault();
 
       try {
         const success = await signup(formData);
@@ -59,7 +42,7 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
         console.error("Signup error:", err);
       }
     },
-    [formData, signup, setError, onLoginClick]
+    [formData, signup, onLoginClick]
   );
 
   return (

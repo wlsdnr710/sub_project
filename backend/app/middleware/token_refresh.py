@@ -1,9 +1,10 @@
 from starlette.middleware.base import BaseHTTPMiddleware
-from app.core.jwt_context import verify_token, create_access_token, create_refresh_token
-from jwt import InvalidTokenError, ExpiredSignatureError
-from app.db.database import get_db
-from app.db.crud import UserCrud
 from fastapi import Request
+from fastapi.responses import JSONResponse
+from jwt import ExpiredSignatureError, InvalidTokenError
+from app.db.database import get_db
+from app.core.jwt_context import verify_token, create_access_token, create_refresh_token
+from app.db.crud import UserCrud
 from app.core.auth import set_auth_cookies
 
 
@@ -30,9 +31,14 @@ class TokenRefreshMiddleware(BaseHTTPMiddleware):
         #예외나면 response반환할거임 (새 토큰 발급안함 - 로그아웃 상태)
         if refresh_token:
             try:
-                user_id=verify_token(refresh_token)
-            except InvalidTokenError:
+                user_id = verify_token(refresh_token)
+            except (ExpiredSignatureError, InvalidTokenError):
                 return response
+            except (ExpiredSignatureError):
+                return JSONResponse(
+                    status_code=401,
+                    content={"detail" : "refresh_token_expired"}
+                )
             
             #새 토큰 발급(리프레시 토큰이 유효하다면 새 access_token,refresh_token 발급 )
             new_access_token=create_access_token(user_id)

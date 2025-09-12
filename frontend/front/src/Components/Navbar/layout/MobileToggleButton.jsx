@@ -2,8 +2,8 @@ const MobileToggleButton = ({ isOpen, setIsOpen }) => (
   <div className="md:hidden">
     <button
       onClick={() => setIsOpen(!isOpen)}
-      className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-purple-600"
-      aria-label="메뉴"
+      className="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-emerald-600"
+      aria-label="모바일 메뉴 토글"
       aria-expanded={isOpen}
     >
       <svg

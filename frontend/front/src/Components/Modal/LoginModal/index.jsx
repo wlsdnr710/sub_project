@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from "react";
-import { useAuth } from "../../../hooks/useAuth";
 import {
   ModalLayout,
   ErrorMessage,
@@ -7,6 +6,7 @@ import {
   FormInput,
   SwitchAuthLink,
 } from "../Ui";
+import { useAuth } from "../../../hooks/useAuth";
 
 const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -37,7 +37,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
 
   return (
     <ModalLayout isOpen={isOpen} onClose={onClose} title="로그인">
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
         <FormInput
           type="email"
           name="email"

@@ -1,15 +1,17 @@
 import React from "react";
 import { BiSearch } from "react-icons/bi";
-import SharedNavLinks from "../sharing/SharedNavLinks";
-import MobileAuthButtons from "../auth/MobileAuthButtons";  
+import SharedNavLinks from "../shared/SharedNavLinks";
+import MobileAuthButtons from "../auth/MobileAuthButtons";
 const MobileMenu = ({
-  //user,
+  user,
   isOpen,
   setIsOpen,
   isAuthenticated,
   onLoginClick,
   onLogoutClick,
   onSigupClick,
+  searchQuery,
+  onSearchInputChange,
 }) => {
   return (
     <div
@@ -26,14 +28,16 @@ const MobileMenu = ({
           </div>
           <input
             type="text"
-            className="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-purple-100 text-purple-900 placeholder-purple-500 hover:bg-white hover:text-purple-900 hover:placeholder-purple-400 sm:text-sm transtiion-all duration-500"
+            value={searchQuery}
+            onChange={onSearchInputChange}
+            className="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-emerald-100 text-emerald-900 placeholder-emerald-500 hover:bg-white hover:text-emerald-900 hover:placeholder-emerald-400 sm:text-sm transition-all duration-500"
             placeholder="검색하기"
           />
         </form>
 
         <div className="pb-2 mb-2">
           <SharedNavLinks
-            linkClassName="text-white hover:bg-purple-600 block px-3 py-2 rounded-md text-base font-medium transition-all duration-500"
+            linkClassName="text-white hover:bg-emerald-600 block px-3 py-2 rounded-md text-base font-medium transition-all duration-500"
             onClick={() => setIsOpen(false)}
           />
         </div>
@@ -43,7 +47,7 @@ const MobileMenu = ({
           setIsOpen={setIsOpen}
           onLoginClick={onLoginClick}
           onLogoutClick={onLogoutClick}
-          onSignupClick={onSigupClick} 
+          onSignupClick={onSigupClick}
         />
       </div>
     </div>

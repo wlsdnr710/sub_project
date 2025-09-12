@@ -1,4 +1,1 @@
-export const MENU_LINKS =[
-    {to:"/create-post",label:"글 작성"}
-    
-]
+export const MENU_LINKS = [{ to: "/create-post", label: "글 생성" }];

@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 export const handleAuthError = async (error) => {
   if (error.response?.status === 401) {
     await Swal.fire({
-      title: "로그인이 필요!",
+      title: "로그인이 필요합니다!",
       text: "이 페이지를 이용하려면 로그인하세요.",
       icon: "warning",
       confirmButtonText: "확인",
@@ -16,7 +16,7 @@ export const handleAuthError = async (error) => {
 
 export const showErrorAlert = (
   error,
-  defaultMessage = "오류가 발생."
+  defaultMessage = "오류가 발생했습니다."
 ) => {
   Swal.fire({
     icon: "error",
