@@ -12,6 +12,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { error, login } = useAuth();
 
+  //입력처리
   const handleChange = useCallback((e) => {
     setFormData((prev) => ({
       ...prev,
@@ -23,7 +24,7 @@ const LoginModal = ({ isOpen, onClose, onSignupClick }) => {
     async (e) => {
       e.preventDefault();
 
-      try {
+      try {                //useAuth 훅
         const success = await login(formData.email, formData.password);
         if (success) {
           onClose();

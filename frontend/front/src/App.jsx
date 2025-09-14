@@ -5,10 +5,10 @@ import LoginModal from "./Components/Modal/LoginModal";
 import { AuthProvider, useAuth } from "./hooks/useAuth";
 import SignupModal from "./Components/Modal/SignupModal";
 import Main from "./Pages/Main";
+import Createpost from "./Pages/Createpost";
 import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
 import Membership from "./Pages/Membership";
-import Createpost from "./Pages/CreatePost";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();

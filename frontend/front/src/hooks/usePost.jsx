@@ -19,27 +19,44 @@ export const usePost = () => {
         category,
         ...(search && { search }),
       };
-      const response = await api.get("/posts", {
+      const response = await api.get("/posts",{
         params,
       });
 
       if (response.status === 200) {
-        if (Array.isArray(response.data)) {
-          return { posts: response.data, total: response.data.length };
-        } else if (response.data && Array.isArray(response.data.posts)) {
-          return { posts: response.data.posts, total: response.data.total || response.data.posts.length };
-        }
+        return response.data;
       }
-      return { posts: [], total: 0 };
+      return null;
     } catch (error) {
       //showErrorAlert(error, "게시글을 불러올 수 없습니다.");
-      return { posts: [], total: 0 };
+      return null;
     } finally {
       setLoading(false);
     }
   };
 
-  
+  const countAllposts = async (category, search) => {
+    setLoading(true);
+    try {
+      const params = {
+        category,
+        ...(search && { search }),
+      };
+      const response = await api.get("/posts/count", {
+        params,
+      });
+
+      if (response.status === 200) {
+        return response.data;
+      }
+      return null;
+    } catch (error) {
+      // showErrorAlert(error, "게시글을 불러올 수 없습니다.");
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const addpost = async (postData) => {
     setLoading(true);
@@ -80,6 +97,7 @@ export const usePost = () => {
   return {
     loading,
     fetchposts,
+    countAllposts,
     addpost,
     getpostById,
   };

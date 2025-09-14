@@ -7,7 +7,7 @@ import Pagination from "./layout/Pagination";
 import { usePost } from "../../hooks/usePost";
 
 const Main = () => {
-  const { loading, fetchposts } = usePost();
+  const { loading, fetchposts, countAllposts } = usePost();
   const [posts, setposts] = useState([]);
   const [totalposts, setTotalposts] = useState(0);
 
@@ -20,18 +20,18 @@ const Main = () => {
   const postsPerPage = 12;
 
   const loadposts = useCallback(async () => {
-    const { posts, total } = await fetchposts({
+    const data = await fetchposts({
       offset: page,
       limit: postsPerPage,
       sort,
       category,
       search,
     });
-    setposts(posts);
-    setTotalposts(total);
+    if (data) setposts(data);
   }, [fetchposts, page, sort, category, search]);
 
   useEffect(() => {
+    countAllposts(category, search).then((count) => setTotalposts(count || 0));
     loadposts();
   }, [category, sort, page, search]);
 

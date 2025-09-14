@@ -1,8 +1,8 @@
 import React, { memo, useMemo } from "react";
 import { Link } from "react-router-dom";
-import VoteInfo from "./LikeInfo";
+import LikeInfo from "./LikeInfo";
 
-const PostCard = ({ post, onVote }) => {
+const PostCard = ({ post }) => {
   const formattedDate = useMemo(() => {
     return new Date(post.created_at).toLocaleString("ko-KR", {
       year: "numeric",
@@ -20,13 +20,6 @@ const PostCard = ({ post, onVote }) => {
         post.has_voted ? "bg-gray-100" : "bg-white"
       }`}
     >
-      {post.has_voted && (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/70 rounded-lg">
-          <span className="px-6 py-4 text-xl font-bold text-white bg-purple-500 rounded-lg">
-            이미 클릭한 글입니다
-          </span>
-        </div>
-      )}
 
       <div className="flex-1 flex flex-col">
         <div className="mb-2 flex justify-between items-start">
@@ -42,7 +35,7 @@ const PostCard = ({ post, onVote }) => {
         <p className="mb-4 text-sm text-gray-500 line-clamp-2">
           {post.description}
         </p>
-        <VoteInfo createdAt={formattedDate} likeCount={post.like_count} />
+        <LikeInfo createdAt={formattedDate} likeCount={post.like_count} />
       </div>
     </div>
     //  </Link>

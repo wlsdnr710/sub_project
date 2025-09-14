@@ -28,7 +28,7 @@ Base=declarative_base()
 #         pass
 #     finally:
 #         if session:
-#             await session.close() 
+#             await session.close()
 async def get_db():
     async with AsyncSessionLocal() as session:
         yield session

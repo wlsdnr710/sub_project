@@ -36,7 +36,7 @@ const SignupModal = ({ isOpen, onClose, onLoginClick }) => {
             password: "",
             confirmPassword: "",
           });
-          onLoginClick();
+          onLoginClick(); //로그인 모달로 전환
         }
       } catch (err) {
         console.error("Signup error:", err);

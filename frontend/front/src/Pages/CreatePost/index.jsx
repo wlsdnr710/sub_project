@@ -13,7 +13,7 @@ const Createpost = () => {
 
   const [formData, setFormData] = useState({
     title: "",
-    description: "",
+    desc: "",
     category: "",
   });
 

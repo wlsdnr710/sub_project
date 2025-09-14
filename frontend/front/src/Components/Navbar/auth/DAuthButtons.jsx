@@ -15,11 +15,11 @@ const AvatarPlaceholder = ({ name }) => {
 };
 
 const DAuthButtons = ({
-  userName,
-  isAuthenticated,
-  isOpen,
-  setIsOpen,
-  onLogoutClick,
+  userName,//로그인한 사람 이름
+  isAuthenticated, //로그인여부
+  isOpen, //드롭다운 메뉴 열림 여부
+  setIsOpen, //드롭다운 상태 변경
+  onLogoutClick, 
   onLoginClick,
   onSignupClick,
 }) => {

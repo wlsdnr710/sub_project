@@ -9,7 +9,7 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [error, setError] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); //현재 사용자 정보
   const navigate = useNavigate();
 
   const login = async (email, password) => {
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyJWT = async () => {
     try {
-      const response = await api.get("/users/me");
+      const response = await api.get("/users/userme");
       setIsAuthenticated(true);
       setUser(response.data);
       return true;

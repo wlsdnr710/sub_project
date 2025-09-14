@@ -6,9 +6,12 @@ from fastapi.concurrency import asynccontextmanager
 from app.db.models import user
 from app.routers import user
 from app.middleware.token_refresh import TokenRefreshMiddleware
+from dotenv import load_dotenv
+from app.routers import post
 
-#애플리케이션의 시작과 종료 시 실행될 작업을 정의함
-#시작/끝을 비동기적으로 처리
+load_dotenv(dotenv_path=".env")
+
+
 @asynccontextmanager
 async def lifespan(app:FastAPI):
     async with async_engine.begin() as conn: #DB 연결 시작하고
@@ -28,7 +31,7 @@ app.add_middleware(TokenRefreshMiddleware)
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  #모든 도메인요청 허용
+    allow_origins=["http://localhost:3000"],  #모든 도메인요청 허용
     allow_credentials=True, #자격증명 true일경우에만 응답 노출
     allow_methods=["*"], #모든 http메소드 허용
     allow_headers=["*"],
@@ -37,7 +40,7 @@ app.add_middleware(
 
 #user.py에 정의된 모든 경로를 fastapi앱에 등록하겠다
 app.include_router(user.router)
-
+app.include_router(post.router)
 
 # if __name__=="__main__":
 #     uvicorn.run("main:app",host="localhost",port=8081,reload=True)

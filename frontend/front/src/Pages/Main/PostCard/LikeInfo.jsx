@@ -1,7 +1,7 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa";
 
-const VoteInfo = ({ createdAt, likeCount }) => {
+const LikeInfo = ({ createdAt, likeCount }) => {
   return (
     <div className="mt-auto pt-4 flex justify-between items-center text-xs text-gray-400 border-t border-gray-300">
       <span>{createdAt}</span>
@@ -15,4 +15,4 @@ const VoteInfo = ({ createdAt, likeCount }) => {
   );
 };
 
-export default VoteInfo;
+export default LikeInfo;

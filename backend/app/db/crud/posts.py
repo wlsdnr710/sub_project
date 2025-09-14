@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.models import Posts
-from app.db.scheme.user import PostCreate
+from app.db.scheme.posts import PostCreate
 from sqlalchemy.future import select
 from sqlalchemy import or_ , desc, func
 
@@ -61,3 +61,17 @@ class PostCrud:
     async def count_user_id(db:AsyncSession, user_id:int):
         result=await db.execute(select(func.count()).where(Posts.user_id==user_id ))
         return result.scalar() or 0 #None이거나 0이면 return 0
+    
+    @staticmethod
+    async def count_all(db:AsyncSession, category:str|None=None, search:str|None=None):
+        query=select(func.count()).select_from(Posts)
+
+        if category:
+            query=query.where(Posts.category==category)
+        
+        if search:
+            query=query.where(Posts.title.ilike(f"%{search}")) | (Posts.desc.ilike(f"%{search}"))
+
+
+        result=await db.execute(query)
+        return result.scalar() or 0 
