@@ -40,5 +40,5 @@ dependencies = [
     "tomli==2.2.1",
     "typing-extensions==4.15.0",
     "typing-inspection==0.4.1",
-    "uvicorn>=0.35.0",
+    "uvicorn==0.35.0",
 ]

@@ -5,17 +5,15 @@ from app.core.settings import settings
 import uuid
 
 
-# bcrypt 는 해시 알고리즘 중 안정성이 높은편/ 패스워드 저장에 많이 쓴다
-pwd_context = CryptContext(schemes=["bcrypt"])
+#bcrypt 는 해시 알고리즘 중 안정성이 높은편/ 패스워드 저장에 많이 쓴다
+pwd_context=CryptContext(schemes=["bcrypt"])
 
-
-# 해시값 저장
-async def get_pwd_hash(password: str):
+#해시값 저장
+async def get_pwd_hash(password:str):
     return pwd_context.hash(password)
 
-
-# 비번 검증(입력한 비번과. db에 저장된 해시값 비번 같으면 true)
-async def verify_pwd(plain_password: str, hashed_pasword: str):
+#비번 검증(입력한 비번과. db에 저장된 해시값 비번 같으면 true)
+async def verify_pwd(plain_password:str, hashed_pasword:str):
     return pwd_context.verify(plain_password, hashed_pasword)
 
 
